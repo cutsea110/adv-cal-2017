@@ -29,3 +29,13 @@ notNotId false ()
 andIntro : (a b : Bool) → isTrue a → isTrue b → isTrue (a and b)
 andIntro true y p₁ p₂ = p₂
 andIntro false y () p₂
+
+open import Data.Nat
+
+nonZero : ℕ → Bool
+nonZero zero = false
+nonZero (suc n) = true
+
+postulate _div_ : ℕ → (m : ℕ){p : isTrue (nonZero m)} → ℕ
+
+three = 16 div 5
