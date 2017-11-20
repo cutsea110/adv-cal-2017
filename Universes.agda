@@ -70,3 +70,7 @@ map (|K| A) f c = c
 map (F |+| G) f (inl x) = inl (map F f x)
 map (F |+| G) f (inr x) = inr (map G f x)
 map (F |x| G) f (x , y) = map F f x , map G f y
+
+data μ_ (F : Functor) : Set where
+  <_> : [ F ] (μ F) → μ F
+
