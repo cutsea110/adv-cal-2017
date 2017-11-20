@@ -39,3 +39,12 @@ nonZero (suc n) = true
 postulate _div_ : ℕ → (m : ℕ){p : isTrue (nonZero m)} → ℕ
 
 three = 16 div 5
+
+-----
+
+data Functor : Set₁ where
+  |Id|  : Functor
+  |K|   : Set → Functor
+  _|+|_ : Functor → Functor → Functor
+  _|x|_ : Functor → Functor → Functor
+
