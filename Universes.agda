@@ -72,5 +72,19 @@ map (F |+| G) f (inr x) = inr (map G f x)
 map (F |x| G) f (x , y) = map F f x , map G f y
 
 data μ_ (F : Functor) : Set where
-  <_> : [ F ] (μ F) → μ F
+  In : [ F ] (μ F) → μ F
 
+out : {F : Functor} → μ F → [ F ] (μ F)
+out (In x) = x
+
+mapFold : ∀ {X} F G → ([ G ] X → X) → [ F ] (μ G) → [ F ] X
+mapFold |Id| G φ (In x) = φ (mapFold G G φ x)
+mapFold (|K| A) G φ c = c
+mapFold (F₁ |+| F₂) G φ (inl x) = inl (mapFold F₁ G φ x)
+mapFold (F₁ |+| F₂) G φ (inr x) = inr (mapFold F₂ G φ x)
+mapFold (F₁ |x| F₂) G φ (x , y) = (mapFold F₁ G φ x) , mapFold F₂ G φ y
+
+open import Function using (_∘_)
+
+fold : {F : Functor}{A : Set} → ([ F ] A → A) → μ F → A
+fold {F} φ = φ ∘ mapFold F F φ ∘ out
