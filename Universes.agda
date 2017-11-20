@@ -88,3 +88,11 @@ open import Function using (_∘_)
 
 fold : {F : Functor}{A : Set} → ([ F ] A → A) → μ F → A
 fold {F} φ = φ ∘ mapFold F F φ ∘ out
+
+NatF = |K| True |+| |Id|
+Nat = μ NatF
+
+Z : Nat
+Z = In (inl _)
+S : Nat → Nat
+S n = In (inr n)
