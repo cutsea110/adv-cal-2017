@@ -48,3 +48,12 @@ data Functor : Set₁ where
   _|+|_ : Functor → Functor → Functor
   _|x|_ : Functor → Functor → Functor
 
+data _⊕_ (A B : Set) : Set where
+  inl : A → A ⊕ B
+  inr : B → A ⊕ B
+
+data _⊛_ (A B : Set) : Set where
+  _,_ : A → B → A ⊛ B
+
+infixr 50 _|+|_ _⊕_
+infixr 60 _|x|_ _⊛_
