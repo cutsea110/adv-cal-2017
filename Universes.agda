@@ -63,3 +63,10 @@ infixr 60 _|x|_ _⊛_
 [ |K| A ] X = A
 [ F |+| G ] X = [ F ] X ⊕ [ G ] X
 [ F |x| G ] X = [ F ] X ⊛ [ G ] X
+
+map : (F : Functor){X Y : Set} → (X → Y) → [ F ] X → [ F ] Y
+map |Id| f x = f x
+map (|K| A) f c = c
+map (F |+| G) f (inl x) = inl (map F f x)
+map (F |+| G) f (inr x) = inr (map G f x)
+map (F |x| G) f (x , y) = map F f x , map G f y
