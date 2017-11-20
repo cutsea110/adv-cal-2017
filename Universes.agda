@@ -57,3 +57,9 @@ data _⊛_ (A B : Set) : Set where
 
 infixr 50 _|+|_ _⊕_
 infixr 60 _|x|_ _⊛_
+
+[_] : Functor → Set → Set
+[ |Id| ] X = X
+[ |K| A ] X = A
+[ F |+| G ] X = [ F ] X ⊕ [ G ] X
+[ F |x| G ] X = [ F ] X ⊛ [ G ] X
