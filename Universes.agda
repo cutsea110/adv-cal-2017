@@ -93,6 +93,16 @@ NatF = |K| True |+| |Id|
 Nat = μ NatF
 
 Z : Nat
-Z = In (inl _)
+Z = In (inl (record {}))
 S : Nat → Nat
 S n = In (inr n)
+
+ListF : Set → Functor
+ListF A = |K| True |+| |K| A |x| |Id|
+List : Set → Set
+List A = μ (ListF A)
+
+nil : {A : Set} → List A
+nil = In (inl (record {}))
+cons : {A : Set} → A → List A → List A
+cons x xs = In (inr (x , xs))
