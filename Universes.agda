@@ -106,3 +106,13 @@ nil : {A : Set} → List A
 nil = In (inl (record {}))
 cons : {A : Set} → A → List A → List A
 cons x xs = In (inr (x , xs))
+
+[_||_] : {A B C : Set} → (A → C) → (B → C) → A ⊕ B → C
+[ f || g ] (inl x) = f x
+[ f || g ] (inr y) = g y
+
+uncurry : {A B C : Set} → (A → B → C) → A ⊛ B → C
+uncurry f (x , y) = f x y
+
+const : {A B : Set} → A → B → A
+const x y = x
