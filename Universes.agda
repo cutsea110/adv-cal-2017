@@ -119,3 +119,6 @@ const x y = x
 
 foldr : {A B : Set} → (A → B → B) → B → List A → B
 foldr {A} {B} f z = fold [ const z || uncurry f ]
+
+plus : Nat → Nat → Nat
+plus n m = fold [ const m || S ] n
