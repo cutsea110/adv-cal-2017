@@ -116,3 +116,6 @@ uncurry f (x , y) = f x y
 
 const : {A B : Set} → A → B → A
 const x y = x
+
+foldr : {A B : Set} → (A → B → B) → B → List A → B
+foldr {A} {B} f z = fold [ const z || uncurry f ]
