@@ -80,9 +80,18 @@ mapFold (F |+| G) H φ (inr x) = inr (mapFold G H φ x)
 mapFold (F |x| G) H φ (x , y) = (mapFold F H φ x) , (mapFold G H φ y)
 
 cata : ∀ {X} F → ([ F ] X → X) → μ F → X
-cata F φ = φ ∘ map F (cata F φ) ∘ out
--- cata F φ = φ ∘ mapFold F F φ ∘ out
+-- cata F φ = φ ∘ map F (cata F φ) ∘ out
+cata F φ = φ ∘ mapFold F F φ ∘ out
 
+zero : Nat
+zero = In (inl tt)
+succ : Nat → Nat
+succ n = In (inr n)
+
+nil : {A : Set} → List A
+nil = In (inl tt)
+cons : {A : Set} → A → List A → List A
+cons x xs = In (inr (x , xs))
 
 {--
 NatF = |K| True |+| |Id|
