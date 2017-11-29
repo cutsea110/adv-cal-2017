@@ -13,8 +13,6 @@ isTrue : Bool → Set
 isTrue true = True
 isTrue false = False
 
---
-
 -- a type of codes
 data Functor : Set₁ where
   |I| : Functor
@@ -45,6 +43,12 @@ data μ (F : Functor) : Set where
 out : {F : Functor} → μ F → [ F ] (μ F)
 out (In x) = x
 
+-- X ----> FX
+-- |       |
+-- |f      |Ff
+-- |       |
+-- v       v
+-- Y ----> FY
 map : (F : Functor){X Y : Set} → (X → Y) → [ F ] X → [ F ] Y
 map |I| f x = f x
 map (|K| A) f c = c
