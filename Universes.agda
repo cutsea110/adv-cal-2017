@@ -93,38 +93,18 @@ nil = In (inl tt)
 cons : {A : Set} → A → List A → List A
 cons x xs = In (inr (x , xs))
 
-{--
-NatF = |K| True |+| |Id|
-Nat = μ NatF
+either : {A B C : Set} → (A → C) → (B → C) → A ⊕ B → C
+either f g (inl x) = f x
+either f g (inr x) = g x
 
-Z : Nat
-Z = In (inl (record {}))
-S : Nat → Nat
-S n = In (inr n)
-
-ListF : Set → Functor
-ListF A = |K| True |+| |K| A |x| |Id|
-List : Set → Set
-List A = μ (ListF A)
-
-nil : {A : Set} → List A
-nil = In (inl (record {}))
-cons : {A : Set} → A → List A → List A
-cons x xs = In (inr (x , xs))
-
-[_||_] : {A B C : Set} → (A → C) → (B → C) → A ⊕ B → C
-[ f || g ] (inl x) = f x
-[ f || g ] (inr y) = g y
-
-uncurry : {A B C : Set} → (A → B → C) → A ⊛ B → C
+uncurry : {A B C : Set} → (A → B → C) → A ⊗ B → C
 uncurry f (x , y) = f x y
 
 const : {A B : Set} → A → B → A
 const x y = x
 
 foldr : {A B : Set} → (A → B → B) → B → List A → B
-foldr {A} {B} f z = fold [ const z || uncurry f ]
+foldr {A} f z = cata (ListF A) (either (const z) (uncurry f))
 
 plus : Nat → Nat → Nat
-plus n m = fold [ const m || S ] n
---}
+plus n m = cata NatF (either (const m) succ) n
