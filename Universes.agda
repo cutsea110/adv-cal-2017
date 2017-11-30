@@ -35,7 +35,7 @@ infixr 60 _|x|_ _⊗_
 -- decoding function
 [_] : (F : Functor) → Set → Set
 [ |I| ] X = X
-[ |K| A ] X = A
+[ |K| C ] X = C
 [ F₁ |+| F₂ ] X = [ F₁ ] X ⊕ [ F₂ ] X
 [ F₁ |x| F₂ ] X = [ F₁ ] X ⊗ [ F₂ ] X
 
@@ -66,16 +66,16 @@ cons : {A : Set} → A → List A → List A
 cons x xs = In (inr (x , xs))
 
 -- A ----> FA
--- |φ      |Fφ
+-- |f      |Ff
 -- v       v
 -- B ----> FB
 
 map : (F : Functor){A B : Set} → (A → B) → [ F ] A → [ F ] B
-map |I| φ x = φ x
-map (|K| C) φ c = c
-map (F₁ |+| F₂) φ (inl x) = inl (map F₁ φ x)
-map (F₁ |+| F₂) φ (inr x) = inr (map F₂ φ x)
-map (F₁ |x| F₂) φ (x₁ , x₂) = map F₁ φ x₁ , map F₂ φ x₂
+map |I| f x = f x
+map (|K| C) f c = c
+map (F₁ |+| F₂) f (inl x) = inl (map F₁ f x)
+map (F₁ |+| F₂) f (inr x) = inr (map F₂ f x)
+map (F₁ |x| F₂) f (x₁ , x₂) = map F₁ f x₁ , map F₂ f x₂
 
 open import Function using (_∘_)
 
