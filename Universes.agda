@@ -128,3 +128,5 @@ plus : Nat → Nat → Nat
 plus = foldn succ
 mult : Nat → Nat → Nat
 mult n = foldn (plus n) zero
+expr : Nat → Nat → Nat
+expr n = foldn (mult n) (succ zero)
