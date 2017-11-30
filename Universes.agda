@@ -126,3 +126,5 @@ foldn f n = cata NatF (either (const n) f)
 
 plus : Nat → Nat → Nat
 plus = foldn succ
+mult : Nat → Nat → Nat
+mult n = foldn (plus n) zero
