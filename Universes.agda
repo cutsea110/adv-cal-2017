@@ -130,3 +130,14 @@ mult : Nat → Nat → Nat
 mult n = foldn (plus n) zero
 expr : Nat → Nat → Nat
 expr n = foldn (mult n) (succ zero)
+
+open import Data.Nat renaming (zero to Z; suc to S)
+
+-- utility
+fromNat : Nat → ℕ
+fromNat (In (inl tt)) = 0
+fromNat (In (inr x)) = S (fromNat x)
+
+toNat : ℕ → Nat
+toNat Z = zero
+toNat (S n) = succ (toNat n)
