@@ -120,3 +120,9 @@ uncurry f (x , y) = f x y
 
 foldr : {A B : Set} → (A → B → B) → B → List A → B
 foldr {A} f b = cata (ListF A) (either (const b) (uncurry f))
+
+foldn : {A : Set} → (A → A) → A → Nat → A
+foldn f n = cata NatF (either (const n) f)
+
+plus : Nat → Nat → Nat
+plus = foldn succ
