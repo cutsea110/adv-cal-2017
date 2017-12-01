@@ -148,7 +148,9 @@ toNat : ℕ → Nat
 toNat Z = zero
 toNat (S n) = succ (toNat n)
 
-
+mapPara : (F G : Functor){X : Set} → ([ G ] (μ G ⊗ X) → X) → [ F ] (μ G) → [ F ] (μ F ⊗ X)
+mapPara F G φ x = {!!}
 
 para : (F : Functor){X : Set} → ([ F ] (μ F ⊗ X) → X) → μ F → X
-para F φ = φ ∘ map F (pair (id , para F φ)) ∘ out
+-- para F φ = φ ∘ map F (pair (id , para F φ)) ∘ out
+para F φ = φ ∘  mapPara F F φ  ∘ out
