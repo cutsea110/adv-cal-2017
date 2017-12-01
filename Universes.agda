@@ -108,9 +108,15 @@ mapCata (F₁ |x| F₂) G φ (x₁ , x₂) = mapCata F₁ G φ x₁ , mapCata F�
 cata : (F : Functor){X : Set} → ([ F ] X → X) → μ F → X
 cata F φ =  φ ∘ mapCata F F φ ∘ out
 
+pair : {A B C : Set} → ((A → B) ⊗ (A → C)) → A → B ⊗ C
+pair (f , g) x = (f x , g x)
+
 either : {A B C : Set} → (A → C) → (B → C) → A ⊕ B → C
 either f g (inl x) = f x
 either f g (inr x) = g x
+
+id : {A : Set} → A → A
+id x = x
 
 const : {A B : Set} → A → B → A
 const x y = x
@@ -141,3 +147,8 @@ fromNat (In (inr x)) = S (fromNat x)
 toNat : ℕ → Nat
 toNat Z = zero
 toNat (S n) = succ (toNat n)
+
+
+
+para : (F : Functor){X : Set} → ([ F ] (μ F ⊗ X) → X) → μ F → X
+para F φ = φ ∘ map F (pair (id , para F φ)) ∘ out
