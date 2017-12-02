@@ -149,7 +149,11 @@ toNat Z = zero
 toNat (S n) = succ (toNat n)
 
 mapPara : (F G : Functor){X : Set} → ([ G ] (μ G ⊗ X) → X) → [ F ] (μ G) → [ F ] (μ F ⊗ X)
-mapPara F G φ x = {!!}
+mapPara |I| G φ x = {!!}
+mapPara (|K| C) G φ c = c
+mapPara (F₁ |+| F₂) G φ (inl x) = inl {!!}
+mapPara (F₁ |+| F₂) G φ (inr x) = inr {!!}
+mapPara (F₁ |x| F₂) G φ (x₁ , x₂) = {!!} , {!!}
 
 para : (F : Functor){X : Set} → ([ F ] (μ F ⊗ X) → X) → μ F → X
 -- para F φ = φ ∘ map F (pair (id , para F φ)) ∘ out
